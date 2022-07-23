@@ -15,24 +15,24 @@ func checkCommands(commands []string, maxNumCmd int) {
 	}
 }
 
-func chooseGitCommand(commands []string) (gitFunc func () (string, error)) {
+func chooseGitCommand(commands []string) (mghFunc func (...string) (string, error)) {
 	switch commands[0] {
 	case "addall":
 		checkCommands(commands, 1)
-		gitFunc = repo_manager.GitAddAll
+		mghFunc = repo_manager.MghAddAll
 	case "commit":
 		checkCommands(commands, 1)
-		gitFunc = repo_manager.GitCommit
+		mghFunc = repo_manager.MghCommit
 	case "push":
 		checkCommands(commands, 1)
-		gitFunc = repo_manager.GitPush
+		mghFunc = repo_manager.MghPush
 	case "pull":
 		checkCommands(commands, 1)
-		gitFunc = repo_manager.GitPull
+		mghFunc = repo_manager.MghPull
 	case "clean":
 		checkCommands(commands, 2)
 		if commands[1] == "branches" {
-			gitFunc = repo_manager.GitCleanBranches
+			mghFunc = repo_manager.MghCleanBranches
 		} else {
 			fmt.Printf("Error: uknown sub command %s.\n", commands[1])
         	os.Exit(1)
@@ -41,7 +41,7 @@ func chooseGitCommand(commands []string) (gitFunc func () (string, error)) {
 		fmt.Printf("Error: uknown command %s.\n", commands[0])
         os.Exit(1)
 	}
-	return gitFunc
+	return mghFunc
 }
 
 func main() {
@@ -63,8 +63,8 @@ func main() {
 		os.Exit(1)
 	}
 
-	gitFunc := chooseGitCommand(commands)
-	output, err := DirManager.RunGitFunc(gitFunc, *multiRun)
+	mghFunc := chooseGitCommand(commands)
+	output, err := DirManager.RunMghFunc(mghFunc, *multiRun)
 	if err != nil {
 		fmt.Println("Error:", err)
 		os.Exit(1)

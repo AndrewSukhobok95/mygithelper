@@ -45,19 +45,28 @@ func NewDirManager(baseDir string) (*DirManager, error) {
 	return dirManager, nil
 }
 
-func (m *DirManager) RunGitFunc(gitFunc func () (string, error), multiRun bool) (map[string]string, error) {
+func (m *DirManager) RunMghFunc(
+	gitFunc func (...string) (string, error),
+	multiRun bool,
+	gitFuncArgs ...string) (map[string]string, error) {
 	output := make(map[string]string)
 	if multiRun {
+		if len(m.repoDirs) == 0 {
+			return output, NoGitReposInTheDirErorr
+		}
 		for rDirIndex, rDir := range m.repoDirs {
 			os.Chdir(rDir)
-			out, err := gitFunc()
+			out, err := gitFunc(gitFuncArgs...)
 			output[m.repoNames[rDirIndex]] = out
 			if err != nil {
 				return output, err
 			}
 		}
 	} else {
-		out, err := gitFunc()
+		if isRepo, _ := IsGitRepo(m.baseDir); !isRepo {
+			return output, NotGitRepoErorr
+		}
+		out, err := gitFunc(gitFuncArgs...)
 		output[m.baseName] = out
 		if err != nil {
 			return output, err
