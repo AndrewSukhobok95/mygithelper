@@ -5,6 +5,7 @@ import (
 	"os/exec"
 	"path"
 	"log"
+	"errors"
 )
 
 func CreateDir(baseDir string, name string, initGit bool) (dirPath string, err error) {
@@ -43,4 +44,18 @@ func CreateTxtFileWithContent(dirPath, fileName, content string) {
         }
         defer file.Close()
     }
+}
+
+func RunMyGitHelper(commands []string) (output string, err error) {
+	out, err := exec.Command("which", "mgh").CombinedOutput()
+	if err != nil {
+		return
+	}
+	if len(out) == 0 || string(out) == "mgh not found" {
+		err = errors.New("mgh is not in the PATH")
+		return
+	}
+	out, err = exec.Command("mgh", commands...).CombinedOutput()
+	output = string(out)
+	return output, err
 }
