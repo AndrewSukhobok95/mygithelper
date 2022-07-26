@@ -31,7 +31,7 @@ Available Commands:
 Flags:
   -h, --help        help for mgh
   -m, --multi-run   mgh will go through all repositories in the current directory
-                                and apply the command there.
+                    and apply the command there.
   -v, --version     version for mgh
 
 Use "mgh [command] --help" for more information about a command.

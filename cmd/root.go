@@ -27,14 +27,11 @@ var rootCmd = &cobra.Command{
 	},
 }
 
+var descMultiRunFlag string = `mgh will go through all repositories in the current directory
+and apply the command there`
+
 func init() {
-	rootCmd.PersistentFlags().BoolVarP(
-		&multiRun,
-		"multi-run",
-		"m",
-		false,
-		`mgh will go through all repositories in the current directory
-		and apply the command there.`)
+	rootCmd.PersistentFlags().BoolVarP(&multiRun, "multi-run", "m", false, descMultiRunFlag)
 }
 
 func Execute() {
