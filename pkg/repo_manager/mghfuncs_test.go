@@ -5,6 +5,7 @@ import (
     "path"
     "github.com/onsi/ginkgo"
     "github.com/onsi/gomega"
+    "github.com/AndrewSukhobok95/mygithelper/pkg/helpers"
     "github.com/AndrewSukhobok95/mygithelper/pkg/repo_manager"
 )
 
@@ -24,9 +25,9 @@ var _ = ginkgo.Describe("mghfuncs tests", func() {
     ginkgo.Context("Tests for success cases", func() {
         ginkgo.BeforeEach(func() {
             removeAll()
-            repoDirPath, err := repo_manager.CreateDir(baseDir, repoDir, true)
+            repoDirPath, err := helpers.CreateDir(baseDir, repoDir, true)
             gomega.Expect(err).Should(gomega.BeNil())
-            repo_manager.CreateTxtFileWithContent(repoDirPath, "test.txt", "test")
+            helpers.CreateTxtFileWithContent(repoDirPath, "test.txt", "test")
             workingDir, err = os.Getwd()
             gomega.Expect(err).Should(gomega.BeNil())
         })
@@ -63,9 +64,9 @@ var _ = ginkgo.Describe("mghfuncs tests", func() {
     ginkgo.Context("Tests for failure cases", func() {
         ginkgo.BeforeEach(func() {
             removeAll()
-            nonRepoDirPath, err := repo_manager.CreateDir(baseDir, nonRepoDir, false)
+            nonRepoDirPath, err := helpers.CreateDir(baseDir, nonRepoDir, false)
             gomega.Expect(err).Should(gomega.BeNil())
-            repo_manager.CreateTxtFileWithContent(nonRepoDirPath, "test.txt", "test")
+            helpers.CreateTxtFileWithContent(nonRepoDirPath, "test.txt", "test")
             workingDir, err = os.Getwd()
             gomega.Expect(err).Should(gomega.BeNil())
         })

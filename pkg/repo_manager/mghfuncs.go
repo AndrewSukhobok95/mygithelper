@@ -59,10 +59,12 @@ func MghPull(args ...string) (string, error) {
 }
 
 func MghCleanBranches(args ...string) (string, error) {
-	out, err := exec.Command(
-		"git", "branch", "|", 
-		"grep", "-v", "master", "|", 
-		"xargs", "git", "branch", "-d").CombinedOutput()
+	_, err := exec.Command("git", "checkout", "master").CombinedOutput()
+	if err != nil {
+		return "", err
+	}
+	bashCmd := "git branch | grep -v master | xargs git branch -D"
+	out, err := exec.Command("bash", "-c", bashCmd).Output()
 	if err != nil {
 		return "", err
 	}
