@@ -32,7 +32,13 @@ func MghAddAll(args ...string) (string, error) {
 }
 
 func MghCommit(args ...string) (string, error) {
-	out, err := exec.Command("git", "commit", "-m", "automaitc_full_commit").CombinedOutput()
+	var commitMsg string
+	if len(args)==0 {
+		commitMsg = "-"
+	} else {
+		commitMsg = "\"" + args[0] + "\""
+	}
+	out, err := exec.Command("git", "commit", "-m", commitMsg).CombinedOutput()
 	if err != nil {
 		return "", err
 	}

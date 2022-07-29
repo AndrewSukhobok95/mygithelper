@@ -15,7 +15,7 @@ func Run(
 		fmt.Println("Error:", err)
 		os.Exit(1)
 	}
-	output, err := DirManager.RunMghFunc(mghFunc, multiRun)
+	output, err := DirManager.RunMghFunc(mghFunc, multiRun, mghFuncArgs...)
 	if err != nil {
 		fmt.Println("Error:", err)
 		os.Exit(1)

@@ -35,7 +35,7 @@ var _ = ginkgo.Describe("multi-git e2e tests", func() {
 
 		ginkgo.AfterEach(func() {
 			os.Chdir(workingDir)
-			removeAll()
+			//removeAll()
 		})
 
 		ginkgo.It("Should correctly recursively add files in git repos", func() {

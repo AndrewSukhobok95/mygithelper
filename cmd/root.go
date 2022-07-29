@@ -9,7 +9,7 @@ import (
 var version = "1.2"
 var multiRun bool
 
-var longDescRootCmd string = `mgh stands for MyGitHelper - wrapper around git.
+const longDescRootCmd string = `mgh stands for MyGitHelper - wrapper around git.
 It replicates and extends several git commands.
 Also it allows to recursively apply git commands
 to several repositories.`
@@ -27,7 +27,7 @@ var rootCmd = &cobra.Command{
 	},
 }
 
-var descMultiRunFlag string = `mgh will go through all repositories in the current directory
+const descMultiRunFlag string = `mgh will go through all repositories in the current directory
 and apply the command there`
 
 func init() {

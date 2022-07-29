@@ -6,7 +6,7 @@ import (
 	"github.com/AndrewSukhobok95/mygithelper/pkg/repo_manager"
 )
 
-var longDescCleanCmd string = `Delete something from the repository
+const longDescCleanCmd string = `Delete something from the repository
 The target of the cleaning is defined by required sub commands`
 
 var cleanCmd = &cobra.Command{
