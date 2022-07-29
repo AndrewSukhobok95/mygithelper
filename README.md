@@ -37,6 +37,20 @@ Flags:
 Use "mgh [command] --help" for more information about a command.
 ```
 
+## Testing
+
+- Running end-to-end tests:
+```
+chmod +x ./scripts/run_e2e_tests.sh  
+./scripts/run_e2e_tests.sh
+```
+
+- Prepare playground to test mgh locally:
+```
+chmod +x ./scripts/create_manual_test_set_up.sh  
+./scripts/create_manual_test_set_up.sh
+```
+
 **Thigs to add later:**
 - `mgh init <folders>`
 - `mgh add all`
