@@ -2,17 +2,22 @@ package cmd
 
 import (
 	"os"
-	"fmt"
+	"path"
     "github.com/spf13/cobra"
+	"github.com/spf13/viper"
+	"github.com/AndrewSukhobok95/mygithelper/pkg/common"
 )
 
-var version = "1.2"
+var version = "1.3"
 var multiRun bool
+var configPath string
 
 const longDescRootCmd string = `mgh stands for MyGitHelper - wrapper around git.
 It replicates and extends several git commands.
 Also it allows to recursively apply git commands
 to several repositories.`
+const descMultiRunFlag string = `mgh will go through all repositories in the current directory
+and apply the command there`
 
 var rootCmd = &cobra.Command{
 	Use:   "mgh",
@@ -27,16 +32,28 @@ var rootCmd = &cobra.Command{
 	},
 }
 
-const descMultiRunFlag string = `mgh will go through all repositories in the current directory
-and apply the command there`
-
 func init() {
+	cobra.OnInitialize(initConfig)
+	
+	err := viper.BindEnv("home")
+	common.Check(err)
+	home := viper.GetString("home")
+	configPath = path.Join(home, ".mgh/config.yaml")
+
 	rootCmd.PersistentFlags().BoolVarP(&multiRun, "multi-run", "m", false, descMultiRunFlag)
 }
 
-func Execute() {
-	if err := rootCmd.Execute(); err != nil {
-		fmt.Println(err)
-		os.Exit(1)
+func initConfig() {
+	_, err := os.Stat(configPath)
+	if os.IsNotExist(err) {
+		common.Check(err)
 	}
+	viper.SetConfigFile(configPath)
+	err = viper.ReadInConfig()
+	common.Check(err)
+}
+
+func Execute() {
+	err := rootCmd.Execute()
+	common.Check(err)
 }
