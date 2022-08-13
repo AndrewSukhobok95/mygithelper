@@ -1,24 +1,26 @@
 package e2e_tests
 
 import (
+	"log"
 	"os"
 	"os/exec"
-	"log"
-    "github.com/onsi/ginkgo"
-    "github.com/onsi/gomega"
-    "github.com/AndrewSukhobok95/mygithelper/pkg/helpers"
+
+	"github.com/AndrewSukhobok95/mygithelper/pkg/helpers"
+	"github.com/onsi/ginkgo"
+	"github.com/onsi/gomega"
 )
 
 var workingDir string
+
 const baseDir = "./../../tmp/"
 
 var _ = ginkgo.Describe("multi-git e2e tests", func() {
 	var err error
 
 	removeAll := func() {
-        err = os.RemoveAll(baseDir)
-        gomega.Expect(err).Should(gomega.BeNil())
-    }
+		err = os.RemoveAll(baseDir)
+		gomega.Expect(err).Should(gomega.BeNil())
+	}
 
 	ginkgo.Context("Tests for success cases with one branch", func() {
 		ginkgo.BeforeEach(func() {
@@ -35,7 +37,7 @@ var _ = ginkgo.Describe("multi-git e2e tests", func() {
 
 		ginkgo.AfterEach(func() {
 			os.Chdir(workingDir)
-			//removeAll()
+			removeAll()
 		})
 
 		ginkgo.It("Should correctly recursively add files in git repos", func() {
@@ -76,7 +78,7 @@ var _ = ginkgo.Describe("multi-git e2e tests", func() {
 		ginkgo.BeforeEach(func() {
 			var err error
 			var commands []string
-			//removeAll()
+			removeAll()
 			workingDir, err = os.Getwd()
 			gomega.Expect(err).Should(gomega.BeNil())
 			repoDirList := []string{"dir-repo-1", "dir-repo-2"}
@@ -116,4 +118,3 @@ var _ = ginkgo.Describe("multi-git e2e tests", func() {
 		})
 	})
 })
-
