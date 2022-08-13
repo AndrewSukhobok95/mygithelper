@@ -1,2 +1,2 @@
-default-commit-message: "automatic commit of all files"
+default-commit-message: "Commited all staged files in the repository."
 main-branch-name: "master"
