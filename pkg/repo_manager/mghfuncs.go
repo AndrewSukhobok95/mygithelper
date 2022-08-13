@@ -65,11 +65,17 @@ func MghPull(args ...string) (string, error) {
 }
 
 func MghCleanBranches(args ...string) (string, error) {
-	_, err := exec.Command("git", "checkout", "master").CombinedOutput()
+	var mainBranchName string
+	if len(args)==0 {
+		mainBranchName = "master"
+	} else {
+		mainBranchName = args[0]
+	}
+	_, err := exec.Command("git", "checkout", mainBranchName).CombinedOutput()
 	if err != nil {
 		return "", err
 	}
-	bashCmd := "git branch | grep -v master | xargs git branch -D"
+	bashCmd := "git branch | grep -v " + mainBranchName + " | xargs git branch -D"
 	out, err := exec.Command("bash", "-c", bashCmd).Output()
 	if err != nil {
 		return "", err
