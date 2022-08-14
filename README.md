@@ -4,7 +4,6 @@ This is a toy project to learn golang. The idea of the project is based on this 
 
 In general this repository is going trough the same steps as the course, so the first commit starts from the simpliest possible version and every next one gradually improves the repo.
 
-
 ## Description
 
 This tool is a wrapper aroung git. It provides a set of commands that replaicate or extend the existing git functionality. Also, this tool allows you to apply this command recursively in several repositories.
