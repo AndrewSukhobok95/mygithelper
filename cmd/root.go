@@ -9,7 +9,6 @@ import (
 	"github.com/spf13/viper"
 )
 
-var version = "1.3"
 var multiRun bool
 var configPath string
 
@@ -22,10 +21,9 @@ const descMultiRunFlag string = `mgh will go through all repositories in the cur
 and apply the command there`
 
 var rootCmd = &cobra.Command{
-	Use:     "mgh",
-	Version: version,
-	Short:   "mgh stands for MyGitHelper - wrapper around git",
-	Long:    longDescRootCmd,
+	Use:   "mgh",
+	Short: "mgh stands for MyGitHelper - wrapper around git",
+	Long:  longDescRootCmd,
 	Run: func(cmd *cobra.Command, args []string) {
 		if len(args) == 0 {
 			cmd.Help()
