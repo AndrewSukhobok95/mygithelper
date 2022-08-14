@@ -2,4 +2,4 @@
 
 mkdir $HOME/.mgh/
 cp ./configs/config.yaml $HOME/.mgh/config.yaml
-go build -o /usr/local/bin/mgh -ldflags "-X 'main.GitTag=$(git describe --tags)' -X 'main.Timestamp=$(date -u)'"
+go build -o /usr/local/bin/mgh -ldflags "-X 'main.VersionTag=$(git describe --tags)' -X 'main.Timestamp=$(date -u)'"
