@@ -4,7 +4,6 @@ import (
 	"os"
 	"path"
 
-	"github.com/AndrewSukhobok95/mygithelper/pkg/common"
 	"github.com/AndrewSukhobok95/mygithelper/pkg/helpers"
 	"github.com/AndrewSukhobok95/mygithelper/pkg/repo_manager"
 	"github.com/onsi/ginkgo"
@@ -60,7 +59,6 @@ var _ = ginkgo.Describe("mghfuncs tests", func() {
 			_, err = repo_manager.MghAddAll()
 			gomega.Expect(err).Should(gomega.BeNil())
 			_, err = repo_manager.MghCommit()
-			common.Check(err)
 			gomega.Expect(err).Should(gomega.BeNil())
 		})
 	})
